@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo List</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>📝 Todo List</h1>
+  </header>
+
+  <main class="main-container">
+    <% if (msg) { %>
+      <div class="alert"><%= decodeURIComponent(msg) %></div>
+    <% } %>
+
+    <!-- Add Task -->
+    <form action="/add" method="POST" class="task-form" onsubmit="return validateForm('taskInput')">
+      <input type="text" name="task" id="taskInput" placeholder="Enter a task..." />
+      <select name="priority">
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button type="submit">➕</button>
+    </form>
+
+    <!-- Filter -->
+    <form action="/" method="GET" class="filter-form">
+      <label>Filter by Priority:</label>
+      <select name="priority" onchange="this.form.submit()">
+        <option value="All" <%= filter === "All" ? "selected" : "" %>>All</option>
+        <option value="Low" <%= filter === "Low" ? "selected" : "" %>>Low</option>
+        <option value="Medium" <%= filter === "Medium" ? "selected" : "" %>>Medium</option>
+        <option value="High" <%= filter === "High" ? "selected" : "" %>>High</option>
+      </select>
+    </form>
+
+    <!-- Task List -->
+    <ul class="task-list">
+      <% tasks.forEach(task => { %>
+        <li class="task-item">
+          <span><strong><%= task.name %></strong> - <%= task.priority %></span>
+          <div class="task-actions">
+            <!-- Edit Form -->
+            <form action="/edit/<%= task.id %>" method="POST" class="inline-form">
+              <input type="text" name="updatedTask" placeholder="Edit..." />
+              <button type="submit">✏️</button>
+            </form>
+
+            <!-- Delete Form -->
+            <form action="/delete/<%= task.id %>" method="POST" class="inline-form">
+              <button type="submit" onclick="return confirm('Delete this task?')">🗑️</button>
+            </form>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Todo App by Sagar Agrawal</p>
+  </footer>
+
+  <script>
+    function validateForm(inputId) {
+      const input = document.getElementById(inputId);
+      if (input.value.trim() === "") {
+        alert("Task cannot be empty!");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
