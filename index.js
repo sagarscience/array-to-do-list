@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 
 app.post("/add", (req, res) => {
   const { task, priority } = req.body;
-  if (!task.trim()) return res.redirect("/?msg=Task%20cannot%20be%20empty");
+  // if (!task.trim()) return res.redirect("/?msg=Task%20cannot%20be%20empty");
   tasks.push({
     id: Date.now().toString(),
     name: task.trim(),
