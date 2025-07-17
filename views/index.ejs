@@ -14,7 +14,7 @@
   <main class="main-container">
     <% if (msg) { %>
       <div class="alert"><%= decodeURIComponent(msg) %></div>
-    <% } %>
+    <% } %> 
 
     <!-- Add Task -->
     <form action="/add" method="POST" class="task-form" onsubmit="return validateForm('taskInput')">
