@@ -18,7 +18,7 @@
 
     <!-- Add Task -->
     <form action="/add" method="POST" class="task-form" onsubmit="return validateForm('taskInput')">
-      <input type="text" name="task" id="taskInput" placeholder="Enter a task..." />
+      <input type="text" name="task" id="taskInput" placeholder="Enter a task..." required/>
       <select name="priority">
         <option value="Low">Low</option>
         <option value="Medium" selected>Medium</option>
@@ -46,7 +46,7 @@
           <div class="task-actions">
             <!-- Edit Form -->
             <form action="/edit/<%= task.id %>" method="POST" class="inline-form">
-              <input type="text" name="updatedTask" placeholder="Edit..." />
+              <input type="text" name="updatedTask" placeholder="Edit..." required />
               <button type="submit">✏️</button>
             </form>
 
